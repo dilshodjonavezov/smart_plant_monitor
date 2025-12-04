@@ -1,0 +1,78 @@
+/* Neomorphism Theme */
+body {
+  background: #e0e5ec;
+  color: #2d3748;
+}
+
+.style-switcher button {
+  background: #e0e5ec;
+  box-shadow: 5px 5px 10px #a3b1c6, -5px -5px 10px #ffffff;
+  border: none;
+}
+
+.style-switcher button.active {
+  box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+  color: #4f46e5;
+}
+
+.status-bar {
+  background: #e0e5ec;
+}
+
+.sensor-card {
+  background: #e0e5ec;
+  box-shadow: 8px 8px 16px #a3b1c6, -8px -8px 16px #ffffff;
+  border-radius: 20px;
+}
+
+.sensor-card:hover {
+  box-shadow: 12px 12px 20px #a3b1c6, -12px -12px 20px #ffffff;
+}
+
+.sensor-value {
+  color: #4f46e5;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sensor-progress {
+  background: #d1d5db;
+  box-shadow: inset 2px 2px 4px #a3b1c6;
+  border-radius: 10px;
+}
+
+.control-btn {
+  background: #e0e5ec;
+  box-shadow: 6px 6px 12px #a3b1c6, -6px -6px 12px #ffffff;
+  border: none;
+  color: #4f46e5;
+}
+
+.control-btn:hover {
+  box-shadow: 8px 8px 16px #a3b1c6, -8px -8px 16px #ffffff;
+}
+
+.control-btn:active, .control-btn.active {
+  box-shadow: inset 6px 6px 12px #a3b1c6, inset -6px -6px 12px #ffffff;
+}
+
+.chart-section, .events-section {
+  background: #e0e5ec;
+  box-shadow: 8px 8px 16px #a3b1c6, -8px -8px 16px #ffffff;
+  border-radius: 20px;
+}
+
+.chart-tab {
+  background: #e0e5ec;
+  box-shadow: 4px 4px 8px #a3b1c6, -4px -4px 8px #ffffff;
+}
+
+.chart-tab.active {
+  box-shadow: inset 4px 4px 8px #a3b1c6, inset -4px -4px 8px #ffffff;
+  color: #4f46e5;
+}
+
+.stat-card {
+  background: #e0e5ec;
+  box-shadow: 6px 6px 12px #a3b1c6, -6px -6px 12px #ffffff;
+  border-radius: 15px;
+}
