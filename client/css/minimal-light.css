@@ -1,0 +1,454 @@
+/* Minimal Light Theme */
+
+/* Base colors */
+body {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+/* Status Bar */
+.status-bar {
+  background: rgba(248, 250, 252, 0.8);
+}
+
+/* Mode Indicator */
+.mode-indicator.auto {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.mode-indicator.manual {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* Sensor Cards */
+.sensor-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sensor-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sensor-header i,
+.sensor-header h3 {
+  color: #4b5563;
+}
+
+.sensor-value {
+  color: #2563eb;
+}
+
+.sensor-progress {
+  background: #e2e8f0;
+}
+
+/* Control Buttons */
+.control-btn {
+  background: #2563eb;
+  border: none;
+  color: white;
+}
+
+.control-btn:hover {
+  background: #1d4ed8;
+  color: white;
+}
+
+.control-btn.active {
+  background: #3b82f6;
+  color: white;
+}
+
+/* Chart Section */
+.chart-section, .events-section {
+  background: white;
+  border: 1px solid #e2e8f0;
+}
+
+/* Chart Tabs */
+.chart-tab {
+  background: #e2e8f0;
+  color: #64748b;
+}
+
+.chart-tab.active {
+  background: #2563eb;
+  color: white;
+}
+
+/* Statistics Cards */
+.stat-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+}
+
+.stat-value {
+  color: #4b5563;
+}
+
+/* Chart Header */
+.chart-header i,
+.chart-header h2 {
+  color: #4b5563;
+}
+
+/* Events Section Summary */
+.events-section summary i,
+.events-section summary {
+  color: #4b5563;
+}
+
+/* Header Actions Dropdowns */
+.dropdown-content,
+.mode-selector .dropdown-content,
+.profile-selector .dropdown-content {
+  border-color: #d1d5db !important;
+  background: white !important;
+}
+
+.mode-selector .dropdown-content a,
+.mode-selector .dropdown-content li a,
+.profile-selector .dropdown-content a,
+.profile-selector .dropdown-content li a {
+  color: #4b5563 !important;
+}
+
+.mode-selector .dropdown-content .font-bold,
+.profile-selector .dropdown-content .font-bold {
+  color: #4b5563 !important;
+}
+
+.mode-selector .dropdown-content .text-xs,
+.profile-selector .dropdown-content .text-xs {
+  color: #6b7280 !important;
+}
+
+/* Active/Selected dropdown items */
+.mode-selector .dropdown-content li a.active,
+.mode-selector .dropdown-content a.active,
+.profile-selector .dropdown-content li a.active,
+.profile-selector .dropdown-content a.active {
+  background-color: #f3f4f6 !important;
+  color: #2563eb !important;
+}
+
+.mode-selector .dropdown-content li a.active .font-bold,
+.profile-selector .dropdown-content li a.active .font-bold {
+  color: #2563eb !important;
+}
+
+.mode-selector .dropdown-content li a.active .text-xs,
+.profile-selector .dropdown-content li a.active .text-xs {
+  color: #3b82f6 !important;
+}
+
+/* Hover state for dropdown items */
+.mode-selector .dropdown-content li a:hover,
+.profile-selector .dropdown-content li a:hover {
+  background-color: #f9fafb !important;
+}
+
+/* Mode Selector Button */
+.mode-selector .btn-outline,
+.profile-selector .btn-outline {
+  border-color: #d1d5db !important;
+  color: #4b5563 !important;
+}
+
+.mode-selector .btn-outline:hover,
+.profile-selector .btn-outline:hover {
+  background-color: #f9fafb !important;
+  border-color: #9ca3af !important;
+}
+
+/* Theme Switcher Dropdown - Light Mode */
+.theme-switcher .dropdown-toggle {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+}
+
+.theme-switcher .dropdown-toggle:hover {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+}
+
+.theme-switcher .dropdown-content {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #d1d5db;
+}
+
+.theme-switcher .dropdown-item {
+  color: #4b5563 !important;
+}
+
+.theme-switcher .dropdown-item:hover {
+  background: #f9fafb !important;
+}
+
+.theme-switcher .dropdown-item.active {
+  background: #f3f4f6 !important;
+  color: #2563eb !important;
+}
+
+.theme-switcher .dropdown-item.active .dropdown-item-text .title {
+  color: #2563eb !important;
+}
+
+/* Notification Bell - Light Mode */
+.notification-bell .bell-button {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+}
+
+.notification-bell .bell-button:hover {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+}
+
+.notification-bell .dropdown-content {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #d1d5db;
+}
+
+.notification-bell .dropdown-header h4 {
+  color: #1f2937;
+}
+
+.notification-bell .notification-item {
+  color: #4b5563;
+}
+
+.notification-bell .notification-title {
+  color: #1f2937;
+}
+
+.notification-bell .notification-message {
+  color: #6b7280;
+}
+
+.notification-bell .no-notifications {
+  color: #6b7280;
+}
+
+/* DataTables - Light Mode - Force override ALL dark mode styles */
+/* This overrides Tailwind's dark: classes which use @media (prefers-color-scheme: dark) */
+
+/* Force light backgrounds on all inputs and selects */
+select,
+input[type="search"],
+.dataTables_wrapper select,
+.dataTables_wrapper input[type="search"],
+.dataTables_length select,
+.dataTables_filter input {
+  background-color: white !important;
+  border-color: rgb(229, 231, 235) !important;
+  color: rgb(31, 41, 55) !important;
+}
+
+select:focus,
+input[type="search"]:focus,
+.dataTables_wrapper select:focus,
+.dataTables_wrapper input[type="search"]:focus {
+  border-color: rgb(59, 130, 246) !important;
+  background-color: white !important;
+  --tw-ring-color: rgb(59 130 246 / 0.5) !important;
+}
+
+/* DataTables Table - Header and Body */
+table.dataTable thead th,
+table.dataTable thead td {
+  background-color: rgb(249, 250, 251) !important;
+  border-color: rgb(229, 231, 235) !important;
+  color: rgb(17, 24, 39) !important;
+}
+
+table.dataTable tbody tr:nth-child(odd) {
+  background-color: white !important;
+  border-color: rgb(229, 231, 235) !important;
+}
+
+table.dataTable tbody tr:nth-child(even) {
+  background-color: rgb(249, 250, 251) !important;
+  border-color: rgb(229, 231, 235) !important;
+}
+
+table.dataTable tbody tr:hover {
+  background-color: rgb(243, 244, 246) !important;
+}
+
+table.dataTable tbody td {
+  color: rgb(55, 65, 81) !important;
+  border-color: rgb(229, 231, 235) !important;
+}
+
+/* Pagination buttons - correct DataTables Tailwind structure (a tags directly in ul) */
+.dt-paging nav ul.pagination a {
+  background-color: white !important;
+  border-color: rgb(229, 231, 235) !important;
+  color: rgb(75, 85, 99) !important;
+}
+
+.dt-paging nav ul.pagination a:hover {
+  background-color: rgb(243, 244, 246) !important;
+  border-color: rgb(209, 213, 219) !important;
+  color: rgb(31, 41, 55) !important;
+}
+
+.dt-paging nav ul.pagination a.active,
+.dt-paging nav ul.pagination a.active:hover {
+  background-color: rgb(37, 99, 235) !important;
+  border-color: rgb(37, 99, 235) !important;
+  color: white !important;
+}
+
+.dt-paging nav ul.pagination a.disabled,
+.dt-paging nav ul.pagination a.disabled:hover {
+  background-color: white !important;
+  border-color: rgb(229, 231, 235) !important;
+  color: rgb(209, 213, 219) !important;
+  cursor: not-allowed !important;
+  opacity: 0.5 !important;
+}
+
+/* Override any dark mode media query styles */
+@media (prefers-color-scheme: dark) {
+  html:not(.dark) select,
+  html:not(.dark) input[type="search"],
+  html:not(.dark) .dataTables_wrapper select,
+  html:not(.dark) .dataTables_wrapper input[type="search"] {
+    background-color: white !important;
+    border-color: rgb(229, 231, 235) !important;
+    color: rgb(31, 41, 55) !important;
+  }
+
+  html:not(.dark) select:focus,
+  html:not(.dark) input[type="search"]:focus {
+    border-color: rgb(59, 130, 246) !important;
+    background-color: white !important;
+  }
+
+  /* Table overrides for OS dark mode */
+  html:not(.dark) table.dataTable thead th,
+  html:not(.dark) table.dataTable thead td {
+    background-color: rgb(249, 250, 251) !important;
+    border-color: rgb(229, 231, 235) !important;
+    color: rgb(17, 24, 39) !important;
+  }
+
+  html:not(.dark) table.dataTable tbody tr:nth-child(odd) {
+    background-color: white !important;
+    border-color: rgb(229, 231, 235) !important;
+  }
+
+  html:not(.dark) table.dataTable tbody tr:nth-child(even) {
+    background-color: rgb(249, 250, 251) !important;
+    border-color: rgb(229, 231, 235) !important;
+  }
+
+  html:not(.dark) table.dataTable tbody tr:hover {
+    background-color: rgb(243, 244, 246) !important;
+  }
+
+  html:not(.dark) table.dataTable tbody td {
+    color: rgb(55, 65, 81) !important;
+    border-color: rgb(229, 231, 235) !important;
+  }
+
+  /* Pagination overrides for OS dark mode */
+  html:not(.dark) .dt-paging nav ul.pagination a {
+    background-color: white !important;
+    border-color: rgb(229, 231, 235) !important;
+    color: rgb(75, 85, 99) !important;
+  }
+
+  html:not(.dark) .dt-paging nav ul.pagination a:hover {
+    background-color: rgb(243, 244, 246) !important;
+    border-color: rgb(209, 213, 219) !important;
+    color: rgb(31, 41, 55) !important;
+  }
+
+  html:not(.dark) .dt-paging nav ul.pagination a.active,
+  html:not(.dark) .dt-paging nav ul.pagination a.active:hover {
+    background-color: rgb(37, 99, 235) !important;
+    border-color: rgb(37, 99, 235) !important;
+    color: white !important;
+  }
+
+  html:not(.dark) .dt-paging nav ul.pagination a.disabled,
+  html:not(.dark) .dt-paging nav ul.pagination a.disabled:hover {
+    background-color: white !important;
+    border-color: rgb(229, 231, 235) !important;
+    color: rgb(209, 213, 219) !important;
+  }
+}
+
+/* DataTables - Light Mode */
+/* .dataTables_wrapper {
+  color: #1f2937 !important;
+}
+
+.dataTables_wrapper .dataTables_info {
+  color: #6b7280 !important;
+}
+
+.dataTables_wrapper .dataTables_filter input::placeholder {
+  color: #9ca3af !important;
+}
+
+.dataTables_wrapper .dataTables_length select,
+.dataTables_wrapper .dataTables_filter input {
+  background-color: white !important;
+  border-color: #d1d5db !important;
+  color: #1f2937 !important;
+}
+
+.dataTables_wrapper .dataTables_length select:hover,
+.dataTables_wrapper .dataTables_filter input:hover {
+  border-color: #9ca3af !important;
+}
+
+.dataTables_wrapper .dataTables_length select:focus,
+.dataTables_wrapper .dataTables_filter input:focus {
+  border-color: #6b7280 !important;
+  background-color: #f9fafb !important;
+  outline: none !important;
+}
+
+.dataTables_wrapper .dataTables_length label,
+.dataTables_wrapper .dataTables_filter label {
+  color: #4b5563 !important;
+} */
+
+/* Pagination buttons */
+/* .dataTables_wrapper .dataTables_paginate .paginate_button {
+  color: #4b5563 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: #f3f4f6 !important;
+  border-color: #d1d5db !important;
+  color: #1f2937 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background: #2563eb !important;
+  border-color: #2563eb !important;
+  color: white !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  background: #1d4ed8 !important;
+  border-color: #1d4ed8 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+  color: #d1d5db !important;
+} */

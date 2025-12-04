@@ -1,0 +1,82 @@
+{
+  "strawberry": {
+    "soil_moisture": { "min": 55, "optimal": 65, "max": 75 },
+    "soil_temperature": { "min": 12, "optimal": 18, "max": 25 },
+    "air_temperature": { "min": 10, "optimal": 20, "max": 28 },
+    "air_humidity": { "min": 50, "optimal": 70, "max": 85 },
+    "light_lux": { "min": 20000, "optimal": 40000, "max": 60000 },
+    "soil_ph": { "min": 5.5, "optimal": 6.0, "max": 6.8 }
+  },
+
+  "tomato": {
+    "soil_moisture": { "min": 55, "optimal": 65, "max": 75 },
+    "soil_temperature": { "min": 14, "optimal": 20, "max": 28 },
+    "air_temperature": { "min": 15, "optimal": 22, "max": 30 },
+    "air_humidity": { "min": 40, "optimal": 60, "max": 75 },
+    "light_lux": { "min": 30000, "optimal": 50000, "max": 70000 },
+    "soil_ph": { "min": 6.0, "optimal": 6.5, "max": 7.0 }
+  },
+
+  "raspberry": {
+    "soil_moisture": { "min": 60, "optimal": 70, "max": 80 },
+    "soil_temperature": { "min": 10, "optimal": 16, "max": 22 },
+    "air_temperature": { "min": 12, "optimal": 20, "max": 26 },
+    "air_humidity": { "min": 55, "optimal": 65, "max": 80 },
+    "light_lux": { "min": 15000, "optimal": 30000, "max": 50000 },
+    "soil_ph": { "min": 5.8, "optimal": 6.3, "max": 7.0 }
+  },
+
+  "cucumber": {
+    "soil_moisture": { "min": 65, "optimal": 75, "max": 85 },
+    "soil_temperature": { "min": 16, "optimal": 22, "max": 28 },
+    "air_temperature": { "min": 18, "optimal": 24, "max": 32 },
+    "air_humidity": { "min": 60, "optimal": 75, "max": 90 },
+    "light_lux": { "min": 20000, "optimal": 40000, "max": 60000 },
+    "soil_ph": { "min": 6.0, "optimal": 6.5, "max": 7.2 }
+  },
+
+  "potato": {
+    "soil_moisture": { "min": 60, "optimal": 70, "max": 80 },
+    "soil_temperature": { "min": 7, "optimal": 16, "max": 22 },
+    "air_temperature": { "min": 12, "optimal": 18, "max": 26 },
+    "air_humidity": { "min": 50, "optimal": 65, "max": 80 },
+    "light_lux": { "min": 15000, "optimal": 30000, "max": 50000 },
+    "soil_ph": { "min": 5.3, "optimal": 5.8, "max": 6.5 }
+  },
+
+  "grape": {
+    "soil_moisture": { "min": 45, "optimal": 55, "max": 65 },
+    "soil_temperature": { "min": 10, "optimal": 18, "max": 25 },
+    "air_temperature": { "min": 12, "optimal": 22, "max": 32 },
+    "air_humidity": { "min": 40, "optimal": 55, "max": 70 },
+    "light_lux": { "min": 30000, "optimal": 50000, "max": 80000 },
+    "soil_ph": { "min": 6.0, "optimal": 6.5, "max": 7.5 }
+  },
+
+  "cabbage": {
+    "soil_moisture": { "min": 70, "optimal": 80, "max": 90 },
+    "soil_temperature": { "min": 7, "optimal": 16, "max": 22 },
+    "air_temperature": { "min": 10, "optimal": 18, "max": 26 },
+    "air_humidity": { "min": 60, "optimal": 75, "max": 90 },
+    "light_lux": { "min": 15000, "optimal": 30000, "max": 50000 },
+    "soil_ph": { "min": 6.0, "optimal": 6.8, "max": 7.5 }
+  },
+
+  "watermelon": {
+    "soil_moisture": { "min": 50, "optimal": 60, "max": 70 },
+    "soil_temperature": { "min": 18, "optimal": 22, "max": 28 },
+    "air_temperature": { "min": 20, "optimal": 28, "max": 35 },
+    "air_humidity": { "min": 40, "optimal": 55, "max": 70 },
+    "light_lux": { "min": 30000, "optimal": 50000, "max": 70000 },
+    "soil_ph": { "min": 6.0, "optimal": 6.5, "max": 7.5 }
+  },
+
+  "lemon": {
+    "soil_moisture": { "min": 50, "optimal": 60, "max": 70 },
+    "soil_temperature": { "min": 15, "optimal": 20, "max": 26 },
+    "air_temperature": { "min": 16, "optimal": 22, "max": 32 },
+    "air_humidity": { "min": 45, "optimal": 60, "max": 80 },
+    "light_lux": { "min": 20000, "optimal": 40000, "max": 60000 },
+    "soil_ph": { "min": 5.5, "optimal": 6.0, "max": 7.0 }
+  }
+}

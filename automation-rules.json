@@ -1,0 +1,29 @@
+{
+  "automation_rules": {
+    "soil_moisture": {
+      "if_below_min": "start_irrigation_until_optimal",
+      "if_below_optimal": "start_irrigation_short_cycle",
+      "if_above_max": "stop_irrigation_and_notify"
+    },
+    "soil_temperature": {
+      "if_below_min": "enable_ground_heater_or_notify",
+      "if_above_max": "enable_shading_or_cooling_and_notify"
+    },
+    "air_temperature": {
+      "if_below_min": "close_vents_or_enable_heating",
+      "if_above_max": "open_vents_or_enable_fans"
+    },
+    "air_humidity": {
+      "if_below_min": "enable_misting",
+      "if_above_max": "increase_airflow"
+    },
+    "light_lux": {
+      "if_below_min": "enable_additional_lighting",
+      "if_above_max": "enable_shading"
+    },
+    "soil_ph": {
+      "if_below_min": "notify_low_ph_and_recommend_lime",
+      "if_above_max": "notify_high_ph_and_recommend_sulfur"
+    }
+  }
+}

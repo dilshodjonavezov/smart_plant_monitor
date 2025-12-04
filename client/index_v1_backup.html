@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Soil Moisture Monitoring System</title>
+
+    <!-- TailwindCSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f1419 100%);
+            min-height: 100vh;
+        }
+
+        .card {
+            background: rgba(31, 41, 55, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(75, 85, 99, 0.3);
+        }
+
+        .moisture-display {
+            font-size: 4rem;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .animate-pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .status-indicator {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .status-active {
+            background: #22c55e;
+            box-shadow: 0 0 10px #22c55e;
+            animation: pulse 2s infinite;
+        }
+
+        .status-inactive {
+            background: #6b7280;
+        }
+    </style>
+</head>
+<body class="p-6">
+    <div class="container mx-auto max-w-7xl">
+        <!-- Header -->
+        <div class="mb-8 text-center fade-in">
+            <h1 class="text-5xl font-bold text-white mb-2">
+                🌱 IoT Soil Moisture Monitor
+            </h1>
+            <p class="text-gray-400 text-lg">Real-time plant watering system</p>
+            <div class="mt-4">
+                <div class="badge badge-lg" id="connectionStatus">
+                    <span class="status-indicator status-inactive"></span>
+                    Connecting...
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <!-- Left Column: Data Display -->
+            <div class="lg:col-span-1 space-y-6">
+                <!-- Current Moisture -->
+                <div class="card shadow-2xl p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-blue-400">💧 Current Moisture</h2>
+                    <div class="text-center">
+                        <div class="moisture-display text-blue-400" id="moistureValue">--</div>
+                        <div class="text-2xl text-gray-400">%</div>
+                        <div class="mt-4">
+                            <progress class="progress progress-info w-full h-4" value="0" max="100" id="moistureProgress"></progress>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Watering Status -->
+                <div class="card shadow-2xl p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-green-400">🚿 Watering Status</h2>
+                    <div class="text-center" id="wateringStatus">
+                        <div class="text-3xl mb-2">⏸️</div>
+                        <div class="text-xl text-gray-400">Inactive</div>
+                    </div>
+                </div>
+
+                <!-- Settings Panel -->
+                <div class="card shadow-2xl p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-purple-400">⚙️ Settings</h2>
+                    <div class="space-y-4">
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Min Threshold (%)</span>
+                            </label>
+                            <input type="number" id="minThreshold" class="input input-bordered w-full" value="60" min="0" max="100">
+                        </div>
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Optimal Range (Min %)</span>
+                            </label>
+                            <input type="number" id="optimalMin" class="input input-bordered w-full" value="70" min="0" max="100">
+                        </div>
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Optimal Range (Max %)</span>
+                            </label>
+                            <input type="number" id="optimalMax" class="input input-bordered w-full" value="80" min="0" max="100">
+                        </div>
+                        <button class="btn btn-primary w-full" id="applySettings">
+                            Apply Settings
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Chart and Stats -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Chart -->
+                <div class="card shadow-2xl p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-blue-400">📈 Moisture History</h2>
+                    <div class="relative" style="height: 300px;">
+                        <canvas id="moistureChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Statistics -->
+                <div class="card shadow-2xl p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-yellow-400">📊 Today's Statistics</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                        <div class="stat bg-base-300 rounded-lg p-4">
+                            <div class="stat-title text-xs">Average</div>
+                            <div class="stat-value text-lg" id="statAvg">--</div>
+                            <div class="stat-desc">%</div>
+                        </div>
+                        <div class="stat bg-base-300 rounded-lg p-4">
+                            <div class="stat-title text-xs">Waterings</div>
+                            <div class="stat-value text-lg" id="statCount">--</div>
+                            <div class="stat-desc">times</div>
+                        </div>
+                        <div class="stat bg-base-300 rounded-lg p-4">
+                            <div class="stat-title text-xs">Duration</div>
+                            <div class="stat-value text-lg" id="statDuration">--</div>
+                            <div class="stat-desc">sec</div>
+                        </div>
+                        <div class="stat bg-base-300 rounded-lg p-4">
+                            <div class="stat-title text-xs">Max</div>
+                            <div class="stat-value text-lg" id="statMax">--</div>
+                            <div class="stat-desc">%</div>
+                        </div>
+                        <div class="stat bg-base-300 rounded-lg p-4">
+                            <div class="stat-title text-xs">Min</div>
+                            <div class="stat-value text-lg" id="statMin">--</div>
+                            <div class="stat-desc">%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Watering Events Table -->
+        <div class="card shadow-2xl p-6">
+            <h2 class="text-2xl font-bold mb-4 text-green-400">🗓️ Watering Events History</h2>
+            <div class="overflow-x-auto">
+                <table class="table table-zebra w-full">
+                    <thead>
+                        <tr>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Duration</th>
+                            <th>Moisture Start</th>
+                            <th>Moisture End</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eventsTable">
+                        <tr>
+                            <td colspan="5" class="text-center text-gray-500">No watering events yet...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-8 text-center text-gray-500">
+            <p>IoT Soil Moisture Monitoring System v1.0</p>
+            <p class="text-sm">Last update: <span id="lastUpdate">--</span></p>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

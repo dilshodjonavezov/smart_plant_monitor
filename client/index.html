@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Plant Monitor v2 - Professional Dashboard</title>
+
+    <!-- Fix passive event listener warnings (must load first) -->
+    <script>
+        (function() {
+            let supportsPassive = false;
+            try {
+                const opts = Object.defineProperty({}, 'passive', {
+                    get: function() {
+                        supportsPassive = true;
+                    }
+                });
+                window.addEventListener('testPassive', null, opts);
+                window.removeEventListener('testPassive', null, opts);
+            } catch (e) {}
+
+            if (supportsPassive) {
+                const originalAddEventListener = EventTarget.prototype.addEventListener;
+                EventTarget.prototype.addEventListener = function(type, listener, options) {
+                    const passiveEvents = ['touchstart', 'touchmove', 'wheel', 'mousewheel'];
+                    if (passiveEvents.includes(type)) {
+                        if (typeof options === 'object') {
+                            if (options.passive === undefined) {
+                                options.passive = true;
+                            }
+                        } else {
+                            options = { passive: true, capture: options || false };
+                        }
+                    }
+                    originalAddEventListener.call(this, type, listener, options);
+                };
+            }
+        })();
+    </script>
+
+    <!-- TailwindCSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- ApexCharts -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <!-- jQuery (required for DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- DataTables 2.x with Tailwind CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.5/css/dataTables.tailwindcss.css" />
+    <script src="https://cdn.datatables.net/2.3.5/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.3.5/js/dataTables.tailwindcss.js"></script>
+
+    <!-- CountUp.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.6.2/countUp.umd.min.js"></script>
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- i18next for internationalization -->
+    <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
+
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="css/common.css">
+
+    <!-- Theme CSS (dynamically loaded) -->
+    <link rel="stylesheet" href="css/minimal.css" id="theme-css">
+</head>
+<body>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <div class="status-bar-content">
+            <div class="connection-status">
+                <i data-feather="wifi-off"></i>
+                <span>Connecting...</span>
+            </div>
+            <div class="status-bar-center">
+                <div class="status-bar-title">
+                    <i data-feather="activity"></i>
+                    <span>IoT Plant Monitor v2</span>
+                </div>
+            </div>
+            <div class="status-bar-right">
+                <div class="language-switcher"></div>
+                <div class="theme-switcher"></div>
+                <div class="notification-bell"></div>
+                <div class="mode-indicator">Auto Mode</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container-fluid" data-aos="fade-in">
+        <!-- Header -->
+        <header class="header-section" data-aos="fade-down">
+            <div class="header-content">
+                <div>
+                    <h1 class="main-title">
+                        <i data-feather="activity"></i>
+                        IoT Plant Monitor v2
+                    </h1>
+                    <p class="subtitle">Real-time environmental monitoring system</p>
+                </div>
+                <div class="header-actions">
+                    <div class="mode-selector"></div>
+                    <div class="profile-selector"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sensors Grid -->
+        <div class="sensors-grid" data-aos="fade-up" data-aos-delay="100">
+            <!-- Soil Moisture Card -->
+            <div class="sensor-card" data-sensor="soilMoisture">
+                <div class="sensor-header">
+                    <i data-feather="droplet"></i>
+                    <h3>Soil Moisture</h3>
+                </div>
+                <div class="sensor-value" id="soilMoisture-value">--</div>
+                <div class="sensor-status" id="soilMoisture-status">Waiting...</div>
+                <div class="sensor-progress">
+                    <div class="progress-bar" id="soilMoisture-progress"></div>
+                </div>
+            </div>
+
+            <!-- Temperature Card -->
+            <div class="sensor-card" data-sensor="temperature">
+                <div class="sensor-header">
+                    <i data-feather="thermometer"></i>
+                    <h3>Temperature</h3>
+                </div>
+                <div class="sensor-value" id="temperature-value">--</div>
+                <div class="sensor-status" id="temperature-status">Waiting...</div>
+                <div class="sensor-progress">
+                    <div class="progress-bar" id="temperature-progress"></div>
+                </div>
+            </div>
+
+            <!-- Air Humidity Card -->
+            <div class="sensor-card" data-sensor="airHumidity">
+                <div class="sensor-header">
+                    <i data-feather="cloud"></i>
+                    <h3>Air Humidity</h3>
+                </div>
+                <div class="sensor-value" id="airHumidity-value">--</div>
+                <div class="sensor-status" id="airHumidity-status">Waiting...</div>
+                <div class="sensor-progress">
+                    <div class="progress-bar" id="airHumidity-progress"></div>
+                </div>
+            </div>
+
+            <!-- Light Level Card -->
+            <div class="sensor-card" data-sensor="light">
+                <div class="sensor-header">
+                    <i data-feather="sun"></i>
+                    <h3>Light Level</h3>
+                </div>
+                <div class="sensor-value" id="light-value">--</div>
+                <div class="sensor-status" id="light-status">Waiting...</div>
+                <div class="sensor-progress">
+                    <div class="progress-bar" id="light-progress"></div>
+                </div>
+            </div>
+
+            <!-- pH Level Card -->
+            <div class="sensor-card" data-sensor="pH">
+                <div class="sensor-header">
+                    <i data-feather="activity"></i>
+                    <h3>Soil pH</h3>
+                </div>
+                <div class="sensor-value" id="pH-value">--</div>
+                <div class="sensor-status" id="pH-status">Waiting...</div>
+                <div class="sensor-progress">
+                    <div class="progress-bar" id="pH-progress"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div class="control-panel" data-aos="fade-up" data-aos-delay="200">
+            <button class="control-btn manual-watering-btn" id="manualWateringBtn">
+                <i data-feather="droplet"></i>
+                <span>Manual Watering</span>
+            </button>
+            <button class="control-btn" onclick="app.openSchedulerModal()">
+                <i data-feather="calendar"></i>
+                <span>Scheduler</span>
+            </button>
+            <button class="control-btn" onclick="app.openSettingsModal()">
+                <i data-feather="settings"></i>
+                <span>Settings</span>
+            </button>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="chart-section" data-aos="fade-up" data-aos-delay="300">
+            <div class="chart-header">
+                <h2>
+                    <i data-feather="trending-up"></i>
+                    Sensor History
+                </h2>
+                <div class="chart-tabs" id="chartTabs"></div>
+            </div>
+            <div id="mainChart"></div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-grid" data-aos="fade-up" data-aos-delay="400">
+            <div class="stat-card">
+                <div class="stat-label">Avg Moisture</div>
+                <div class="stat-value" id="stat-avg">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Waterings</div>
+                <div class="stat-value" id="stat-count">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Duration</div>
+                <div class="stat-value" id="stat-duration">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Max Moisture</div>
+                <div class="stat-value" id="stat-max">--</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Min Moisture</div>
+                <div class="stat-value" id="stat-min">--</div>
+            </div>
+        </div>
+
+        <!-- Events Table -->
+        <details class="events-section" data-aos="fade-up" data-aos-delay="500" open>
+            <summary>
+                <i data-feather="list"></i>
+                Watering Events History
+            </summary>
+            <div class="table-container">
+                <table id="eventsTable" class="events-table display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Duration</th>
+                            <th>Start %</th>
+                            <th>End %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- DataTables will populate this -->
+                    </tbody>
+                </table>
+            </div>
+        </details>
+    </div>
+
+    <!-- Modals -->
+    <dialog id="settingsModal" class="modal"></dialog>
+    <dialog id="schedulerModal" class="modal"></dialog>
+    <dialog id="profileModal" class="modal"></dialog>
+
+    <!-- Alert Modal -->
+    <dialog id="alertModal" class="modal">
+        <div class="modal-box">
+            <h3 class="font-bold text-2xl mb-4 flex items-center gap-3">
+                <i data-feather="alert-triangle" class="alert-modal-icon"></i>
+                <span id="alertModalTitle">Sensor Alerts</span>
+            </h3>
+            <div id="alertModalContent" class="space-y-3">
+                <!-- Dynamic alert list will be inserted here -->
+            </div>
+            <div class="modal-action">
+                <button class="btn btn-primary" onclick="document.getElementById('alertModal').close()">
+                    Got it
+                </button>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop"><button>close</button></form>
+    </dialog>
+
+    <!-- Load JS Modules -->
+    <script src="js/i18n.js"></script>
+    <script src="js/websocket.js"></script>
+    <script src="js/sensor-manager.js"></script>
+    <script src="js/chart-manager.js"></script>
+    <script src="js/notification-system.js"></script>
+    <script src="js/profile-manager.js"></script>
+    <script src="js/scheduler.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        // Throttle feather icon replacement to reduce reflows
+        let featherReplaceTimer = null;
+        window.replaceFeatherIcons = function() {
+            if (featherReplaceTimer) {
+                clearTimeout(featherReplaceTimer);
+            }
+            featherReplaceTimer = setTimeout(() => {
+                if (typeof feather !== 'undefined') {
+                    requestAnimationFrame(() => {
+                        feather.replace();
+                    });
+                }
+            }, 100);
+        };
+
+        // Initialize libraries when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize AOS if available with reduced animations
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 600,
+                    easing: 'ease-in-out',
+                    once: true,
+                    disable: 'mobile', // Reduce overhead on mobile
+                    startEvent: 'load' // Wait for page load
+                });
+            }
+
+            // Replace feather icons once after a delay to avoid blocking
+            setTimeout(() => {
+                if (typeof feather !== 'undefined') {
+                    requestAnimationFrame(() => {
+                        feather.replace();
+                    });
+                }
+            }, 200);
+        });
+    </script>
+</body>
+</html>

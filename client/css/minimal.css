@@ -1,0 +1,114 @@
+/* Minimal Dark Theme */
+
+/* Base colors */
+body {
+  background: #0f172a;
+  color: #f1f5f9;
+}
+
+/* Status Bar */
+.status-bar {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+/* Mode Indicator */
+.mode-indicator.auto {
+  background: #1e40af;
+  color: #dbeafe;
+}
+
+.mode-indicator.manual {
+  background: #92400e;
+  color: #fef3c7;
+}
+
+/* Sensor Cards */
+.sensor-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.sensor-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+.sensor-value {
+  color: #3b82f6;
+}
+
+.sensor-progress {
+  background: #334155;
+}
+
+/* Control Buttons */
+.control-btn {
+  background: #2563eb;
+  border: none;
+  color: white;
+}
+
+.control-btn:hover {
+  background: #1d4ed8;
+  color: white;
+}
+
+.control-btn.active {
+  background: #3b82f6;
+  color: white;
+}
+
+/* Chart Section */
+.chart-section, .events-section {
+  background: #1e293b;
+  border: 1px solid #334155;
+}
+
+/* Chart Tabs */
+.chart-tab {
+  background: #334155;
+  color: #94a3b8;
+}
+
+.chart-tab.active {
+  background: #2563eb;
+  color: white;
+}
+
+/* Statistics Cards */
+.stat-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+}
+
+/* DataTables - Dark Mode */
+/* .dataTables_wrapper {
+  color: #d1d5db;
+}
+
+.dataTables_wrapper .dataTables_info {
+  color: #9ca3af;
+}
+
+.dataTables_wrapper .dataTables_filter input::placeholder {
+  color: #6b7280;
+}
+
+.dataTables_wrapper .dataTables_length select,
+.dataTables_wrapper .dataTables_filter input {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #d1d5db;
+}
+
+.dataTables_wrapper .dataTables_length select:hover,
+.dataTables_wrapper .dataTables_filter input:hover {
+  border-color: #475569;
+}
+
+.dataTables_wrapper .dataTables_length select:focus,
+.dataTables_wrapper .dataTables_filter input:focus {
+  border-color: #64748b;
+  background-color: #334155;
+} */
